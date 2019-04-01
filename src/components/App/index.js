@@ -11,6 +11,7 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 
 import * as ROUTES from "../../constants/routes";
+import { withAuthentication } from "../Session";
 
 class App extends Component {
   render() {
@@ -34,4 +35,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuthentication(App);
