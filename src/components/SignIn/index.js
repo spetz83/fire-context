@@ -2,56 +2,13 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
-import Paper from "@material-ui/core/Paper";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
 import { SignUpLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import {
-  Avatar,
-  Typography,
-  FormControl,
-  InputLabel,
-  Input,
-  Button
-} from "@material-ui/core";
-
-const STYLES = theme => ({
-  main: {
-    width: "auto",
-    display: "block",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing.unit
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3
-  }
-});
+import { Grid, Header, Icon, Form, Segment, Button } from "semantic-ui-react";
 
 const SignIn = () => (
-  <main className={STYLES.main}>
+  <main>
     <SignInForm />
   </main>
 );
@@ -92,52 +49,45 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <Paper className={STYLES.paper}>
-        <Avatar className={STYLES.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign In
-        </Typography>
-        <form className={STYLES.form} onSubmit={this.onSubmit}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input
-              id="email"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-              autoComplete="email"
-              autoFocus
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-              type="password"
-              autoComplete="current-password"
-            />
-          </FormControl>
-
-          <Button
-            disabled={isInvalid}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={STYLES.submit}
-          >
-            Sign In
-          </Button>
-
-          {error && <p>{error.message}</p>}
-        </form>
-        <SignUpLink />
-      </Paper>
+      <Grid
+        textAlign="center"
+        style={{ height: "100%" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="grey" textAlign="center">
+            <Icon name="lock open" size="large" /> Log-in to your account
+          </Header>
+          <Form size="large">
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={this.onChange}
+              />
+              <Button color="green" fluid size="large" disabled={isInvalid}>
+                Login
+              </Button>
+            </Segment>
+            {error && <p>{error.message}</p>}
+          </Form>
+          <SignUpLink />
+        </Grid.Column>
+      </Grid>
     );
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Navigation from "../Navigation";
 import Landing from "../Landing";
@@ -17,9 +16,8 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <CssBaseline />
         <Router>
-          <div>
+          <div className="content">
             <Navigation />
             <hr />
             <Route exact path={ROUTES.LANDING} component={Landing} />
