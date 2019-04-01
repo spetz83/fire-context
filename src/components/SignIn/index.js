@@ -6,6 +6,7 @@ import { SignUpLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { Grid, Header, Icon, Form, Segment, Button } from "semantic-ui-react";
+import { PasswordForgetLink } from "../PasswordForget";
 
 const SignIn = () => (
   <main>
@@ -86,6 +87,7 @@ class SignInFormBase extends Component {
             {error && <p>{error.message}</p>}
           </Form>
           <SignUpLink />
+          <PasswordForgetLink />
         </Grid.Column>
       </Grid>
     );
