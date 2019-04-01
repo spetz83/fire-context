@@ -58,7 +58,7 @@ class SignInFormBase extends Component {
           <Header as="h2" color="grey" textAlign="center">
             <Icon name="lock open" size="large" /> Log-in to your account
           </Header>
-          <Form size="large">
+          <Form size="large" onSubmit={this.onSubmit}>
             <Segment stacked>
               <Form.Input
                 fluid

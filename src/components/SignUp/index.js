@@ -5,13 +5,20 @@ import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 
 import * as ROUTES from "../../constants/routes";
-import { Message } from "semantic-ui-react";
+import {
+  Message,
+  Grid,
+  Header,
+  Icon,
+  Form,
+  Segment,
+  Button
+} from "semantic-ui-react";
 
 const SignUp = () => (
-  <div>
-    <h1>Sign Up</h1>
+  <main>
     <SignUpForm />
-  </div>
+  </main>
 );
 
 const INITIAL_STATE = {
@@ -57,40 +64,63 @@ class SignUpFormBase extends Component {
       username === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-        {error && <p>{error.message}</p>}
-      </form>
+      <Grid
+        textAlign="center"
+        style={{ height: "100%" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="grey" textAlign="center">
+            <Icon name="signup" size="large" /> Sign Up
+          </Header>
+          <Form size="large" onSubmit={this.onSubmit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Full Name"
+                name="username"
+                value={username}
+                onChange={this.onChange}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                name="passwordOne"
+                value={passwordOne}
+                onChange={this.onChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Confirm Password"
+                type="password"
+                name="passwordTwo"
+                value={passwordTwo}
+                onChange={this.onChange}
+              />
+              <Button color="green" fluid size="large" disabled={isInvalid}>
+                Sign Up
+              </Button>
+            </Segment>
+            {error && <p>{error.message}</p>}
+          </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
