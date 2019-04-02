@@ -1,5 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,6 +16,7 @@ class Firebase {
     app.initializeApp(config);
 
     this.auth = app.auth();
+    this.db = app.firestore();
   }
 
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -28,6 +30,32 @@ class Firebase {
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+  getUser(uid) {
+    var ref = this.db.collection("users").doc(uid);
+    ref
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          return doc.data;
+        } else {
+          console.log("User with uid: " + uid + " does not exist");
+        }
+      })
+      .catch(error => {
+        console.log("Error: " + error);
+      });
+  }
+
+  users = () =>
+    this.db
+      .collection("users")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          return doc.data;
+        });
+      });
 }
 
 export default Firebase;
