@@ -31,8 +31,18 @@ class Firebase {
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
+  getUserRef() {
+    return this.db.collection("users");
+  }
+
+  createUser(uid, data) {
+    return this.getUserRef()
+      .doc(uid)
+      .set(data);
+  }
+
   getUser(uid) {
-    var ref = this.db.collection("users").doc(uid);
+    var ref = this.getUserRef().doc(uid);
     ref
       .get()
       .then(doc => {
@@ -48,8 +58,7 @@ class Firebase {
   }
 
   users = () =>
-    this.db
-      .collection("users")
+    this.getUserRef()
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
